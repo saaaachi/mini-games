@@ -1,19 +1,104 @@
-<button onclick="chooseAction('sword')">剣を取る</button>
-<button onclick="chooseAction('run')">逃げる</button>
-<button onclick="chooseAction('sleep')">寝る</button>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>勇者候補。</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<p id="result"></p>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding: 40px 10px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 16px;
+      padding: 12px 20px;
+      margin: 6px;
+      border: none;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+      min-height: 2em;
+    }
+    .ad {
+      margin: 30px 0;
+    }
+  </style>
+</head>
 
-<script>
-function chooseAction(action) {
-  const result = document.getElementById("result");
+<body>
 
-  if (action === "sword") {
-    result.textContent = "あなたは剣を取った！";
-  } else if (action === "run") {
-    result.textContent = "あなたは逃げ出した！";
-  } else if (action === "sleep") {
-    result.textContent = "あなたはその場で寝た…";
-  }
-}
-</script>
+  <h1>あなたは勇者候補。</h1>
+  <p>どうする？</p>
+
+  <!-- 広告：上 -->
+  <div class="ad">
+    <!-- admax -->
+    <script src="https://adm.shinobi.jp/s/ca2a64a29f059d5b75dfb476bb7f8362"></script>
+    <!-- admax -->
+  </div>
+
+  <div>
+    <button onclick="chooseAction('sword')">剣を取る</button>
+    <button onclick="chooseAction('run')">逃げる</button>
+    <button onclick="chooseAction('sleep')">寝る</button>
+  </div>
+
+  <div id="result"></div>
+
+  <!-- 広告：下 -->
+  <div class="ad">
+    <!-- admax -->
+    <script src="https://adm.shinobi.jp/s/ca2a64a29f059d5b75dfb476bb7f8362"></script>
+    <!-- admax -->
+  </div>
+
+  <script>
+    function chooseAction(action) {
+      const result = document.getElementById("result");
+
+      const messages = {
+        sword: [
+          "剣を取った！…重い。",
+          "その剣、装飾用だった。",
+          "剣が光った！気のせいだった。"
+        ],
+        run: [
+          "全力で逃げた！",
+          "逃げた先に村人がいた。",
+          "逃げたけど勇者候補は維持された。"
+        ],
+        sleep: [
+          "その場で寝た。",
+          "目が覚めたら夜だった。",
+          "寝ている間に物語が進んだ気がする。"
+        ]
+      };
+
+      const list = messages[action];
+      const randomMessage = list[Math.floor(Math.random() * list.length)];
+
+      result.textContent = randomMessage;
+    }
+  </script>
+
+</body>
+</html>
