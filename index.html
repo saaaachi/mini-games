@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>勇者候補。</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center;
+      padding: 30px;
+      background: #fafafa;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background: #333;
+      color: #fff;
+    }
+    #result {
+      margin-top: 25px;
+      white-space: pre-line;
+      font-size: 15px;
+    }
+    .count {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+    }
+    .ad {
+      margin-top: 25px;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<h1>あなたは勇者候補。</h1>
+<p>どうする？</p>
+
+<button onclick="choose('sword')">剣を取る</button>
+<button onclick="choose('run')">逃げる</button>
+<button onclick="choose('sleep')">寝る</button>
+
+<div id="result"></div>
+
+<script>
+const results = {
+  sword: [
+    "あなたは剣を取った。\nかっこいい。\nしかし何も起きなかった。",
+    "剣は光った。\n気のせいだった。",
+    "剣は重かった。\nそっと置いた。"
+  ],
+  run: [
+    "あなたは逃げた。\n正解だった。\n生きている。",
+    "静かにその場を離れた。\n村は平和だった。",
+    "全力で逃げた。\n誰も追ってこなかった。"
+  ],
+  sleep: [
+    "あなたは寝た。\n夢の中で勇者だった。\n起きた。",
+    "よく寝た。\n今日はそれでいい。",
+    "目を閉じた。\n何も始まらなかった。"
+  ]
+};
+
+function countChoice(type) {
+  const key = "choice_" + type;
+  const current = localStorage.getItem(key);
+  localStorage.setItem(key, current ? Number(current) + 1 : 1);
+}
+
+function getCount(type) {
+  return localStorage.getItem("choice_" + type) || 0;
+}
+
+function choose(type) {
+  countChoice(type);
+
+  const list = results[type];
+  const text = list[Math.floor(Math.random() * list.length)];
+
+  const countText = `\n\nこの選択は ${getCount(type)} 回選ばれています`;
+
+  const ad = `
+  <div class="ad">
+    <!-- ここに広告が入ります -->
+    広告がここに表示されます
+  </div>
+  `;
+
+  document.getElementById("result").innerHTML =
+    text.replace(/\n/g, "<br>") +
+    <div class="count">${countText}</div> +
+    ad;
+}
+</script>
+
+</body>
+</html>
